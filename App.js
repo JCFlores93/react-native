@@ -5,15 +5,18 @@ import ArtistBox from './artist/artistbox'
 
 export default class App extends React.Component {
     render() {
-        const name = "Jean Carlo"
-        const image = 'https://static.platzi.com/media/files/bowie_a927fdf3-b321-4a5c-99ca-239cc86c57bc.png'
-        const likes = 200
-        const comments = 140
+        const artist = {
+            image:'https://static.platzi.com/media/files/bowie_a927fdf3-b321-4a5c-99ca-239cc86c57bc.png',
+            name: 'Jean Carlo',
+            likes: 200,
+            comments: 140
+        }
+
         return (
             <View style={styles.container}>
-               <ArtistBox/>
-                <View>
-                </View>
+               <ArtistBox
+                artist={artist}
+               />
                 {/*            
             <View style={[styles.box, styles.red]}/>
                 <View style={styles.yellow}/>

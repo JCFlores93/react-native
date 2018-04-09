@@ -3,11 +3,14 @@ import { StyleSheet, Text, View, Button, Alert, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 
 export default class ArtistBox extends React.Component {
-    render() {
-        const name = "Jean Carlo"
-        const image = 'https://static.platzi.com/media/files/bowie_a927fdf3-b321-4a5c-99ca-239cc86c57bc.png'
-        const likes = 200
-        const comments = 140
+    render() {        
+
+        const {
+            image,
+            name,
+            likes,
+            comments
+        } = this.props.artist
         return (
             <View style={styles.artistBox}>
                 <Image style={styles.image} source={{ uri: image }} />
@@ -33,7 +36,14 @@ const styles = StyleSheet.create({
 
     artistBox: {
         backgroundColor: 'white',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        shadowColor: 'black',
+        shadowOpacity: .1,
+        shadowOffset: {
+            height:5,
+            width: -2
+        },
+        elevation: 2
     },
     image: {
         width: 150,
