@@ -1,22 +1,33 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Alert, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, Alert, Image, ScrollView, ListView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
-import ArtistBox from './artist/artistbox'
+import ArtistList from './src/artist/artistlist'
+import { getArtists } from './src/services/api-client'
 
 export default class App extends React.Component {
+    componentDidMount() {
+        getArtists()
+            .then(data => {
+                console.warn('en app', data)
+                this.setState({
+                    artists: data
+                })
+            })
+    }
+
+    state = {
+        artists: []
+    }
     render() {
-        const artist = {
-            image:'https://static.platzi.com/media/files/bowie_a927fdf3-b321-4a5c-99ca-239cc86c57bc.png',
-            name: 'Jean Carlo',
-            likes: 200,
-            comments: 140
-        }
+        const artists = this.state.artists
+
+        
+       
 
         return (
             <View style={styles.container}>
-               <ArtistBox
-                artist={artist}
-               />
+                <ArtistList
+                    artists={artists} />
                 {/*            
             <View style={[styles.box, styles.red]}/>
                 <View style={styles.yellow}/>
@@ -33,6 +44,8 @@ export default class App extends React.Component {
                 <Text>Shake your phone to open the developer menu.</Text>
                 */}
             </View>
+
+
         );
     }
 }
