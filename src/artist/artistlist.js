@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, ListView } from 'react-native'
+import { StyleSheet, ListView, TouchableOpacity } from 'react-native'
 import ArtistBox from './artistbox'
+import { Actions } from 'react-native-router-flux'
 
 export default class ArtistList extends Component {
 
@@ -14,7 +15,7 @@ export default class ArtistList extends Component {
     }
 
     componentDidMount() {
-        this.updateDataSource(props.artists)
+        this.updateDataSource(this.props.artists)
     }
 
     componentWillReceiveProps(newProps) {
@@ -28,32 +29,30 @@ export default class ArtistList extends Component {
             dataSource: this.state.dataSource.cloneWithRows(data)
         })
     }
+
+    handlePress(artist) {
+        console.warn('artist',artist)
+        Actions.artistDetail({ artist })
+    } 
+
     render() {
 
 
         return (
             <ListView
                 dataSource={this.state.dataSource}
-                renderRow={(artist) => <ArtistBox
-                    artist={artist}
-                />}
-
+                renderRow={(artist) => {
+                    return (
+                        <TouchableOpacity
+                            onPress={() => this.handlePress(artist)}
+                        >
+                            <ArtistBox
+                                artist={artist}
+                            />
+                        </TouchableOpacity>)
+                }
+                }
             >
-                {/*            
-            <View style={[styles.box, styles.red]}/>
-                <View style={styles.yellow}/>
-                <View style={styles.green}/>
-                <Button
-                    onPress={onPressLearnMore}
-                    title="Learn More"
-                    color="#841584"
-                    accessibilityLabel="Learn more about this purple button"
-                />
-                <Text>Jean Carlo!</Text>
-                <Text>Open up App.js to start working on your app!</Text>
-                <Text>Changes you make will automatically reload.</Text>
-                <Text>Shake your phone to open the developer menu.</Text>
-                */}
             </ListView>
         );
     }
